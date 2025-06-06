@@ -35,9 +35,45 @@ export const signup = async (req: Request<{}, {}, { fullName: string, email: str
     res.status(500).json({ message: "Internal error" })
   }
 }
-export const login = (req: Request, res: Response) => {
-  res.send("signup login")
+
+export const login = async (req: Request<{}, {}, { email: string, password: string }>, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      res.status(400).json({ message: "Invalid credentials" })
+      return;
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password)
+
+    if (!isPasswordCorrect) {
+      res.status(400).json({ message: "Invalid credentials" })
+      return;
+    }
+
+    generateToken(user.id, res);
+    res.status(200).json({ message: "success", user })
+  } catch (error) {
+    res.status(500).json({ message: "Internal error" })
+  }
 }
-export const logout = (req: Request, res: Response) => {
-  res.send("signup logout")
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "success" })
+  } catch (error) {
+    res.status(500).json({ message: "Internal error" })
+  }
+}
+
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    res.status(200).json({ message: "success" })
+  } catch (error) {
+    res.status(500).json({ message: "Internal error" })
+  }
 }
