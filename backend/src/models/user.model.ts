@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { InferRawDocType } from "mongoose";
+import type { IUser } from "../lib/types/user.js";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
   email: {
     type: String,
     required: true,
@@ -26,4 +27,6 @@ const userSchema = new mongoose.Schema({
 );
 
 const User = mongoose.model("User", userSchema);
+
+export type TUserModel = InferRawDocType<IUser>;
 export default User;

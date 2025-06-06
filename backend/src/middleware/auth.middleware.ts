@@ -14,7 +14,6 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
   }
 
   const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET as string)
-  console.log(decoded)
 
   if (!decoded) {
     res

@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import UserModel from "../models/user.model.js"
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/utils.js';
+import { IUser } from '../lib/types/user.js';
+import { cloudinaryApi } from '../lib/cloudinary.js';
+import { v2 as cloudinary } from 'cloudinary'
 
 export const signup = async (req: Request<{}, {}, { fullName: string, email: string, password: string }>, res: Response) => {
   const { fullName, email, password } = req.body;
@@ -70,10 +73,24 @@ export const logout = async (req: Request, res: Response) => {
   }
 }
 
-export const updateProfile = async (req: Request, res: Response) => {
+export const updateProfile = async (req: Request<{}, {}, { avatar: string }>, res: Response) => {
   try {
-    res.status(200).json({ message: "success" })
+    const { avatar } = req.body;
+    const id = req.user._id;
+
+    if (!avatar) {
+      res.status(400).json({ message: "No avatar provided" })
+      return;
+    }
+
+    await cloudinary.uploader.upload(avatar)
+    const upadtedUser = UserModel.findByIdAndUpdate(id, { avatar: avatar }, { new: true });
+    res.status(200).json({ user: upadtedUser })
   } catch (error) {
     res.status(500).json({ message: "Internal error" })
   }
+}
+
+export const checkAuth = async (req: Request<{}, {}, { avatar: string }>, res: Response) => {
+  res.status(200).json({ user: req.user })
 }
