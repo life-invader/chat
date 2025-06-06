@@ -14,17 +14,16 @@ interface IEnvCfg {
 
 const app: Express = express();
 const { parsed } = dotenv.config() as IEnvCfg;
-const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
+
+// Routers
 app.use("/api/auth", authRouter)
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello from Express + TypeScript!');
-});
-
-app.listen(PORT, () => {
+// Start
+app.listen(parsed.PORT, () => {
   console.log(`Server is running on http://localhost:${parsed.PORT}`);
   connectDB();
 });
