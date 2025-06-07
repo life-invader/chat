@@ -1,18 +1,12 @@
-import express, { Request, Response, Router, RequestHandler } from 'express';
+import express, { Request, Response, Router } from 'express';
 import bcrypt from 'bcryptjs';
-import UserModel from './user.model.js';
-import { protectedRoute } from '../../middleware/auth.middleware.js';
+import { UserModel } from './user.model.js';
+import { protectedRoute } from '../../middleware/index.js';
 import { generateToken } from '../../lib/utils.js';
 import { cloudinaryApi } from '../../lib/cloudinary.js';
-import type { HttpMethodType } from '../../lib/types/common.js';
+import type { IRouteList } from './types.js';
 
-interface IRouteList {
-  httpMethod: HttpMethodType
-  url: string
-  handlers: RequestHandler[]
-}
-
-export class AuthModule {
+export class UserRouter {
   router: Router;
   private routes: IRouteList[] = [
     {
@@ -47,13 +41,13 @@ export class AuthModule {
     this.initRoutes();
   }
 
-  initRoutes() {
+  private initRoutes() {
     this.routes.map(({ httpMethod, url, handlers }) => {
       this.router[httpMethod](url, ...handlers);
     })
   }
 
-  async signup(req: Request<{}, {}, { fullName: string, email: string, password: string }>, res: Response) {
+  private async signup(req: Request<{}, {}, { fullName: string, email: string, password: string }>, res: Response) {
     const { fullName, email, password } = req.body;
 
     if (password.length < 6) {
@@ -86,7 +80,7 @@ export class AuthModule {
     }
   }
 
-  async login(req: Request<{}, {}, { email: string, password: string }>, res: Response) {
+  private async login(req: Request<{}, {}, { email: string, password: string }>, res: Response) {
     const { email, password } = req.body;
 
     try {
@@ -111,7 +105,7 @@ export class AuthModule {
     }
   }
 
-  async logout(req: Request, res: Response) {
+  private async logout(req: Request, res: Response) {
     try {
       res.clearCookie("token");
       res.status(200).json({ message: "success" })
@@ -120,11 +114,11 @@ export class AuthModule {
     }
   }
 
-  async checkAuth(req: Request<{}, {}, { avatar: string }>, res: Response) {
+  private async checkAuth(req: Request<{}, {}, { avatar: string }>, res: Response) {
     res.status(200).json({ user: req.user })
   }
 
-  async updateProfile(req: Request<{}, {}, { avatar: string }>, res: Response) {
+  private async updateProfile(req: Request<{}, {}, { avatar: string }>, res: Response) {
     try {
       const { avatar } = req.body;
       const id = req.user._id;

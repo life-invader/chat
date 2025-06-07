@@ -26,7 +26,5 @@ const userSchema = new mongoose.Schema<IUser>({
   }
 );
 
-const UserModel = mongoose.model("User", userSchema);
-
+export const UserModel = mongoose.model("User", userSchema);
 export type TUserModel = InferRawDocType<IUser>;
-export default UserModel;

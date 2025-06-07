@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jsonwebtoken from "jsonwebtoken"
-import UserModel from '../modules/auth/user.model.js';
+import { UserModel } from '../modules/user/index.js';
 
 export const protectedRoute = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
@@ -34,5 +34,5 @@ export const protectedRoute = async (req: Request, res: Response, next: NextFunc
   }
 
   req.user = user;
-  next()
+  next();
 }
