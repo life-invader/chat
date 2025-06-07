@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import { connectDB } from '../lib/db.js';
+import mongoose from 'mongoose';
 import type { IAppProps, IAppRouter, IEnvCfg, MiddlewareEntry } from './types.js';
 
 export class App {
@@ -43,10 +43,20 @@ export class App {
     })
   }
 
+  private async connectDB() {
+    try {
+      await mongoose.connect(this.cfg.parsed.MONGO_DB_URI);
+
+      console.debug("[App mongoose connect]: connected!")
+    } catch (error) {
+      console.error("[App mongoose connect]: connection failed!", error)
+    }
+  }
+
   start() {
     this.app.listen(this.cfg.parsed.PORT, () => {
-      console.log(`Server is running on http://localhost:${this.cfg.parsed.PORT}`);
-      connectDB();
+      console.debug(`[App]: Server is running on http://localhost:${this.cfg.parsed.PORT}`);
+      this.connectDB();
     });
   }
 }

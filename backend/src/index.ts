@@ -3,7 +3,7 @@ import { AuthModule } from './modules/auth/user.js';
 
 const appRouters = [{
   url: "/auth",
-  router: new AuthModule().router
+  router: new AuthModule().router,
 }];
 
 // Start
