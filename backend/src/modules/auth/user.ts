@@ -1,0 +1,145 @@
+import express, { Request, Response, Router, RequestHandler } from 'express';
+import bcrypt from 'bcryptjs';
+import UserModel from './user.model.js';
+import { protectedRoute } from '../../middleware/auth.middleware.js';
+import { generateToken } from '../../lib/utils.js';
+import { cloudinaryApi } from '../../lib/cloudinary.js';
+import type { HttpMethodType } from '../../lib/types/common.js';
+
+interface IRouteList {
+  httpMethod: HttpMethodType
+  url: string
+  handlers: RequestHandler[]
+}
+
+export class AuthModule {
+  router: Router;
+  private routes: IRouteList[] = [
+    {
+      httpMethod: "post",
+      url: "/signup",
+      handlers: [this.signup],
+    },
+    {
+      httpMethod: "post",
+      url: "/login",
+      handlers: [this.login],
+    },
+    {
+      httpMethod: "post",
+      url: "/logout",
+      handlers: [this.logout],
+    },
+    {
+      httpMethod: "get",
+      url: "/checkAuth",
+      handlers: [protectedRoute, this.checkAuth],
+    },
+    {
+      httpMethod: "put",
+      url: "/update",
+      handlers: [protectedRoute, this.updateProfile],
+    },
+  ];
+
+  constructor() {
+    this.router = express.Router();
+    this.initRoutes();
+  }
+
+  initRoutes() {
+    this.routes.map(({ httpMethod, url, handlers }) => {
+      this.router[httpMethod](url, ...handlers);
+    })
+  }
+
+  async signup(req: Request<{}, {}, { fullName: string, email: string, password: string }>, res: Response) {
+    const { fullName, email, password } = req.body;
+
+    if (password.length < 6) {
+      res.status(400).json({ message: "Pasword must be at least 6 characters" })
+      return;
+    }
+
+    try {
+      const user = await UserModel.findOne({ email })
+
+      if (user) {
+        res.status(400).json({ message: "User already exists" })
+        return;
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const newUser = new UserModel({
+        fullName,
+        email,
+        password: hashedPassword,
+      })
+
+      generateToken(newUser.id, res);
+      await newUser.save();
+      res.status(201).json(newUser)
+    } catch (error) {
+      res.status(500).json({ message: "Internal error" })
+    }
+  }
+
+  async login(req: Request<{}, {}, { email: string, password: string }>, res: Response) {
+    const { email, password } = req.body;
+
+    try {
+      const user = await UserModel.findOne({ email });
+
+      if (!user) {
+        res.status(400).json({ message: "Invalid credentials" })
+        return;
+      }
+
+      const isPasswordCorrect = await bcrypt.compare(password, user.password)
+
+      if (!isPasswordCorrect) {
+        res.status(400).json({ message: "Invalid credentials" })
+        return;
+      }
+
+      generateToken(user.id, res);
+      res.status(200).json({ message: "success", user })
+    } catch (error) {
+      res.status(500).json({ message: "Internal error" })
+    }
+  }
+
+  async logout(req: Request, res: Response) {
+    try {
+      res.clearCookie("token");
+      res.status(200).json({ message: "success" })
+    } catch (error) {
+      res.status(500).json({ message: "Internal error" })
+    }
+  }
+
+  async checkAuth(req: Request<{}, {}, { avatar: string }>, res: Response) {
+    res.status(200).json({ user: req.user })
+  }
+
+  async updateProfile(req: Request<{}, {}, { avatar: string }>, res: Response) {
+    try {
+      const { avatar } = req.body;
+      const id = req.user._id;
+
+      if (!avatar) {
+        res.status(400).json({ message: "No avatar provided" })
+        return;
+      }
+
+      await cloudinaryApi.uploader.upload(avatar)
+      const upadtedUser = UserModel.findByIdAndUpdate(id, { avatar: avatar }, { new: true });
+      res.status(200).json({ user: upadtedUser })
+    } catch (error) {
+      res.status(500).json({ message: "Internal error" })
+    }
+  }
+
+}

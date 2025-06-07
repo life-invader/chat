@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jsonwebtoken from "jsonwebtoken"
-import UserModel from "../models/user.model.js"
+import UserModel from '../modules/auth/user.model.js';
 
-export const protectRoute = async (req: Request, res: Response, next: NextFunction) => {
+export const protectedRoute = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
 
   if (!token) {

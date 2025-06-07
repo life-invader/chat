@@ -1,5 +1,5 @@
 import mongoose, { InferRawDocType } from "mongoose";
-import type { IUser } from "../lib/types/user.js";
+import { IUser } from "../../lib/types/user.js";
 
 const userSchema = new mongoose.Schema<IUser>({
   email: {
@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema<IUser>({
   }
 );
 
-const User = mongoose.model("User", userSchema);
+const UserModel = mongoose.model("User", userSchema);
 
 export type TUserModel = InferRawDocType<IUser>;
-export default User;
+export default UserModel;
