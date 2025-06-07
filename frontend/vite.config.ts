@@ -1,11 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import postcssNested from 'postcss-nested';
+import createSvgSpritePlugin from 'vite-plugin-svg-spriter'
 import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    createSvgSpritePlugin({ svgFolder: path.resolve(__dirname, 'src', 'assets', 'icons') }),
+  ],
   css: {
     postcss: {
       plugins: [
