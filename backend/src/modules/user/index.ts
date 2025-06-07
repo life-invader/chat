@@ -1,4 +1,4 @@
 import { UserRouter } from "./router.js"
-import { UserModel } from "./user.model.js"
+import { UserModel } from "./model.js"
 
 export { UserRouter, UserModel }

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import type { Types } from "mongoose";
 
 export interface IUser {
   email: string;
@@ -8,8 +8,8 @@ export interface IUser {
 }
 
 export interface IMessage {
-  senderId: mongoose.Schema.Types.ObjectId;
-  receiverId: mongoose.Schema.Types.ObjectId;
+  senderId: Types.ObjectId;
+  receiverId: Types.ObjectId;
   text: string;
   image: string;
 }

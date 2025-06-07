@@ -1,10 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 import { protectedRoute } from '../../middleware/index.js';
-import { UserModel } from '../user/user.model.js';
+import { UserModel, UserModelType } from '../user/model.js';
 import { MessageModel } from './model.js';
 import { v2 as cloudinary } from 'cloudinary'
 import type { IRouteList } from './types.js';
-import type { IUser } from '../../lib/types/user.js';
 
 
 export class MessageRouter {
@@ -38,12 +37,12 @@ export class MessageRouter {
     })
   }
 
-  private async getUsersForSidebar(req: Request, res: Response) {
+  private async getUsersForSidebar(req: Request, res: Response<{}, { user: UserModelType }>) {
     try {
-      const loggedInUserId = req.user._id;
+      const loggedInUserId = res.locals.user.id;
       const allUsers = await UserModel
         .find({ _id: { $ne: loggedInUserId } })
-        .select("-password")
+        .select({ password: 0 })
 
       res.status(200).json(allUsers)
     } catch (error) {
@@ -51,10 +50,10 @@ export class MessageRouter {
     }
   }
 
-  private async getMessages(req: Request<{ id: string }>, res: Response) {
+  private async getMessages(req: Request<{ id: string }>, res: Response<{}, { user: UserModelType }>) {
     try {
       const { id: companionId } = req.params; // С кем чат
-      const myId = req.user._id; // Я
+      const myId = res.locals.user.id; // Я
       const messages = await MessageModel.find({
         $or: [
           { senderId: myId, receiverId: companionId },
@@ -68,11 +67,11 @@ export class MessageRouter {
     }
   }
 
-  private async sendMessage(req: Request<{ id: string }, {}, { text: string, image: string }>, res: Response) {
+  private async sendMessage(req: Request<{ id: string }, {}, { text: string, image: string }>, res: Response<{}, { user: UserModelType }>) {
     try {
       const { image, text } = req.body;
       const { id: receiverId } = req.params;
-      const senderId = req.user._id; // Я
+      const senderId = res.locals.user.id; // Я
 
       if (image) {
         const response = await cloudinary.uploader.upload(image);

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import jsonwebtoken from "jsonwebtoken"
+import jsonwebtoken, { type JwtPayload } from "jsonwebtoken"
 import { UserModel } from '../modules/user/index.js';
+import type { IToken } from '../lib/types/common.js';
 
 export const protectedRoute = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
@@ -13,7 +14,7 @@ export const protectedRoute = async (req: Request, res: Response, next: NextFunc
     return;
   }
 
-  const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET as string)
+  const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET as string) as JwtPayload & IToken;
 
   if (!decoded) {
     res
@@ -23,7 +24,9 @@ export const protectedRoute = async (req: Request, res: Response, next: NextFunc
     return;
   }
 
-  const user = await UserModel.findById(decoded.userId).select("-password")
+  const user = await UserModel
+    .findById(decoded.userId)
+    .select({ password: 0, });
 
   if (!user) {
     res
@@ -33,6 +36,7 @@ export const protectedRoute = async (req: Request, res: Response, next: NextFunc
     return;
   }
 
-  req.user = user;
+  console.log(user);
+  res.locals.user = user;
   next();
 }

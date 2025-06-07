@@ -4,5 +4,5 @@ import { HttpMethodType } from "../../lib/types/common.js"
 export interface IRouteList {
   httpMethod: HttpMethodType
   url: string
-  handlers: RequestHandler[]
+  handlers: RequestHandler<any, any, any, any, any>[]
 }

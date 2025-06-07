@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { UserModel } from './user.model.js';
+import { UserModel, UserModelType } from './model.js';
 import { protectedRoute } from '../../middleware/index.js';
 import { generateToken } from '../../lib/utils.js';
 import { cloudinaryApi } from '../../lib/cloudinary.js';
@@ -105,7 +105,7 @@ export class UserRouter {
     }
   }
 
-  private async logout(req: Request, res: Response) {
+  private async logout(_req: Request, res: Response) {
     try {
       res.clearCookie("token");
       res.status(200).json({ message: "success" })
@@ -114,14 +114,14 @@ export class UserRouter {
     }
   }
 
-  private async checkAuth(req: Request<{}, {}, { avatar: string }>, res: Response) {
-    res.status(200).json({ user: req.user })
+  private async checkAuth(_req: Request, res: Response<{}, { user: UserModelType }>) {
+    res.status(200).json(res.locals.user)
   }
 
-  private async updateProfile(req: Request<{}, {}, { avatar: string }>, res: Response) {
+  private async updateProfile(req: Request<{}, {}, { avatar: string }>, res: Response<{}, { user: UserModelType }>) {
     try {
       const { avatar } = req.body;
-      const id = req.user._id;
+      const id = res.locals.user.id;
 
       if (!avatar) {
         res.status(400).json({ message: "No avatar provided" })
