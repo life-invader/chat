@@ -1,0 +1,80 @@
+import profileImg1 from "@assets/images/stories/story-1.png"
+import profileImg2 from "@assets/images/stories/story-2.png"
+
+export const messages = [
+  {
+    id: 1,
+    img: profileImg1,
+    name: "Lara Mueller",
+    time: "17:33",
+    lastMessage: "Are hazardous sight rolled subordinates what his average many, to the feel among scent cleaning and behavioural written 😊",
+  },
+  {
+    id: 2,
+    img: profileImg2,
+    name: "Cameron Williamson",
+    time: "16:42",
+    lastMessage: "he right of a know once of as on children's applications of was employed could it the 😁",
+    unreadMessagesQty: "3",
+  },
+  {
+    id: 3,
+    img: profileImg1,
+    name: "Lara Mueller",
+    time: "17:33",
+    lastMessage: "Are hazardous sight rolled subordinates what his average many, to the feel among scent cleaning and behavioural written 😊",
+  },
+  {
+    id: 4,
+    img: profileImg2,
+    name: "Cameron Williamson",
+    time: "16:42",
+    lastMessage: "he right of a know once of as on children's applications of was employed could it the 😁",
+    unreadMessagesQty: "33",
+  },
+  {
+    id: 5,
+    img: profileImg1,
+    name: "Lara Mueller",
+    time: "17:33",
+    lastMessage: "Are hazardous sight rolled subordinates what his average many, to the feel among scent cleaning and behavioural written 😊",
+  },
+  {
+    id: 6,
+    img: profileImg2,
+    name: "Cameron Williamson",
+    time: "16:42",
+    lastMessage: "he right of a know once of as on children's applications of was employed could it the 😁",
+    unreadMessagesQty: "123",
+  },
+  {
+    id: 7,
+    img: profileImg1,
+    name: "Lara Mueller",
+    time: "17:33",
+    lastMessage: "Are hazardous sight rolled subordinates what his average many, to the feel among scent cleaning and behavioural written 😊",
+  },
+  {
+    id: 8,
+    img: profileImg2,
+    name: "Cameron Williamson",
+    time: "16:42",
+    lastMessage: "he right of a know once of as on children's applications of was employed could it the 😁",
+    unreadMessagesQty: "1",
+  },
+  {
+    id: 9,
+    img: profileImg1,
+    name: "Lara Mueller",
+    time: "17:33",
+    lastMessage: "Are hazardous sight rolled subordinates what his average many, to the feel among scent cleaning and behavioural written 😊",
+  },
+  {
+    id: 10,
+    img: profileImg2,
+    name: "Cameron Williamson",
+    time: "16:42",
+    lastMessage: "he right of a know once of as on children's applications of was employed could it the 😁",
+    unreadMessagesQty: "99",
+  },
+];

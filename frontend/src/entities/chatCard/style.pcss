@@ -1,0 +1,59 @@
+.chatCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  cursor: pointer;
+
+  &__imgWrapper {
+    width: 48px;
+    flex-shrink: 0;
+  }
+
+  &__main {
+    min-width: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__name {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  &__lastMsgTime {
+    font-size: 12px;
+  }
+
+  &__lastMsg {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__lastMsgtext {
+    color: var(--colorWhiteAlpha60);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__lastMsgQty {
+    color: var(--colorShark);
+    background-color: var(--colorSidecar);
+    font-size: 10px;
+    line-height: 1.4;
+    height: 16px;
+    min-width: 16px;
+    padding: 1px 5px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+}

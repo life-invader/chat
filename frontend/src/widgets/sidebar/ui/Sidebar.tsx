@@ -2,6 +2,7 @@ import userProfilePic from '@assets/images/user-profile-pic.png';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import { Stories, storiesMockData } from '@entities/stories';
+import { ChatList } from '@widgets/chatList';
 import '../style.pcss';
 
 export const Sidebar = () => {
@@ -15,6 +16,7 @@ export const Sidebar = () => {
               width={40}
               height={40}
               alt="Фото профиля Александр Леонтьев"
+              loading="lazy"
             />
           </div>
 
@@ -42,7 +44,7 @@ export const Sidebar = () => {
       </header>
 
       <Stories stories={storiesMockData.stories} />
-      <div>messages</div>
+      <ChatList />
     </aside>
   );
 };
