@@ -1,6 +1,7 @@
 import userProfilePic from '@assets/images/user-profile-pic.png';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
+import { Stories, storiesMockData } from '@entities/stories';
 import '../style.pcss';
 
 export const Sidebar = () => {
@@ -40,7 +41,7 @@ export const Sidebar = () => {
         </div>
       </header>
 
-      <div>stories</div>
+      <Stories stories={storiesMockData.stories} />
       <div>messages</div>
     </aside>
   );

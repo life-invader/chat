@@ -1,0 +1,26 @@
+.stories {
+  padding: 24px;
+
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    overflow: auto hidden;
+    width: calc(100% + 24px);
+    padding-right: 24px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  &__listItem {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    user-select: none;
+    scroll-snap-align: start;
+  }
+}
