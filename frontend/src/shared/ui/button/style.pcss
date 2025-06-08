@@ -1,0 +1,40 @@
+.btn {
+  /* Цвета */
+  --btnColor: var(--colorWhite);
+  --btnBgColor: var(--colorShark2);
+
+  /* Прочее */
+  --btnWidth: auto;
+  --btnPadding: 8px 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--btnColor);
+  background-color: var(--btnBgColor);
+  border-radius: 4px;
+  border: none;
+  padding: var(--btnPadding);
+  width: var(--btnWidth);
+  cursor: pointer;
+  transition: all 0.2s;
+
+  /* Состояния */
+  &:hover {
+    --btnColor: var(--colorPaleLeaf);
+  }
+
+  &:active {
+    --btnColor: var(--colorPaleLeaf);
+  }
+
+  /* Модификаторы */
+  &--isIconOnly {
+    --btnPadding: 0;
+  }
+
+  &--isBgTransparent {
+    --btnBgColor: transparent;
+  }
+}

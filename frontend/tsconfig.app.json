@@ -24,8 +24,8 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@pages/*": [
-        "src/pages/*"
+      "@routes/*": [
+        "src/routes/*"
       ],
       "@entities/*": [
         "src/entities/*"
@@ -44,6 +44,9 @@
       ],
       "@types/*": [
         "src/shared/types/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
       ],
       "@public/*": [
         "public/*"

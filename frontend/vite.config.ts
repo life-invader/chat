@@ -19,13 +19,14 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@pages': path.resolve(__dirname, 'src', 'pages'),
+      '@routes': path.resolve(__dirname, 'src', 'routes'),
       '@entities': path.resolve(__dirname, 'src', 'entities'),
       '@features': path.resolve(__dirname, 'src', 'features'),
       '@shared': path.resolve(__dirname, 'src', 'shared'),
       '@widgets': path.resolve(__dirname, 'src', 'widgets'),
       '@store': path.resolve(__dirname, 'src', 'app', 'store'),
       '@types': path.resolve(__dirname, 'src', 'shared', 'types'),
+      '@assets': path.resolve(__dirname, 'src', "assets"),
       '@public': path.resolve(__dirname, 'public'),
     },
   },
