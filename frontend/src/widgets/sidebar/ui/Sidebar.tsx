@@ -1,5 +1,6 @@
 import userProfilePic from '@assets/images/user-profile-pic.png';
 import { Button } from '@shared/ui/button';
+import { Input } from '@shared/ui/input';
 import '../style.pcss';
 
 export const Sidebar = () => {
@@ -13,7 +14,6 @@ export const Sidebar = () => {
               width={40}
               height={40}
               alt="Фото профиля Александр Леонтьев"
-              loading="lazy"
             />
           </div>
 
@@ -29,7 +29,14 @@ export const Sidebar = () => {
         </div>
 
         <div className="sidebar__headerSearch">
-          <input type="search" placeholder="Search" />
+          <Input
+            name="message-search"
+            placeholder="Search"
+            autoComplete="true"
+            autoSave="searchAutoSave"
+            inputMode="search"
+            icon={{ icon: 'search' }}
+          />
         </div>
       </header>
 
