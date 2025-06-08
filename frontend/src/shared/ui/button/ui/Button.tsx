@@ -4,6 +4,7 @@ import type { IButtonProps } from '../cfg/types';
 import '../style.pcss';
 
 export const Button = ({
+  extraClasses = [],
   iconLeft,
   iconRight,
   label,
@@ -12,7 +13,7 @@ export const Button = ({
   isBgTransparent,
 }: IButtonProps) => {
   const isIconOnly = !!label || !!children;
-  const classNames = cn('btn', {
+  const classNames = cn('btn', extraClasses, {
     'btn--isBgTransparent': isBgTransparent,
     'btn--isIconOnly': !isIconOnly,
   });

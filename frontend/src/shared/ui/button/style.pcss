@@ -1,32 +1,43 @@
 .btn {
   /* Цвета */
   --btnColor: var(--colorWhite);
+  --btnColorHover: var(--colorPaleLeaf);
+  --btnColorActive: var(--colorPaleLeaf);
+
   --btnBgColor: var(--colorShark2);
+  --btnBgColorHover: var(--colorShark2);
+  --btnBgColorActive: var(--colorShark2);
 
   /* Прочее */
   --btnWidth: auto;
+  --btnHeight: auto;
   --btnPadding: 8px 12px;
+  --btnBorderRadius: 4px;
 
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 
   color: var(--btnColor);
   background-color: var(--btnBgColor);
-  border-radius: 4px;
+  border-radius: var(--btnBorderRadius);
   border: none;
   padding: var(--btnPadding);
   width: var(--btnWidth);
+  height: var(--btnHeight);
   cursor: pointer;
   transition: all 0.2s;
 
   /* Состояния */
   &:hover {
-    --btnColor: var(--colorPaleLeaf);
+    color: var(--btnColorHover);
+    background-color: var(--btnBgColorHover);
   }
 
   &:active {
-    --btnColor: var(--colorPaleLeaf);
+    color: var(--btnColorActive);
+    background-color: var(--btnBgColorActive);
   }
 
   /* Модификаторы */
