@@ -18,7 +18,7 @@ export const Stories = ({ stories }: IStoriesProps) => {
 
         {stories.map((story, index) => (
           <li className="stories__listItem" key={index}>
-            <img src={story} alt="" width={48} height={48} loading="lazy" />
+            <img src={story} alt="Тестовая история" width={48} height={48} loading="lazy" />
           </li>
         ))}
       </ul>

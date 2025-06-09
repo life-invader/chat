@@ -5,7 +5,9 @@ import '../style.pcss';
 export const ChatList = () => {
   return (
     <div className="chatList">
-      <h2 className="chatList__title">Messages</h2>
+      <div className="chatList__header">
+        <h2 className="chatList__title">Messages</h2>
+      </div>
 
       <ul className="chatList__list">
         {messages.map((chat) => (

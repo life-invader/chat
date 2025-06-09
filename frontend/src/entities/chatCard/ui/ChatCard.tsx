@@ -2,8 +2,12 @@ import type { IChatCard } from '../cfg/types';
 import '../style.pcss';
 
 export const ChatCard = ({ img, name, time, lastMessage, unreadMessagesQty }: IChatCard) => {
+  const cardAttrs = {
+    title: unreadMessagesQty ? `Непрочитанных сообщений: ${unreadMessagesQty}` : '',
+  };
+
   return (
-    <div className="chatCard">
+    <div className="chatCard" {...cardAttrs}>
       <div className="chatCard__imgWrapper">
         <img src={img} alt="" width={48} height={48} loading="lazy" />
       </div>
