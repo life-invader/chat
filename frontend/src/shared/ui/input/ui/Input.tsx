@@ -6,11 +6,11 @@ export const Input = ({
   type = 'text',
   placeholder = 'Placeholder',
   icon,
-  ...respProps
+  ...restProps
 }: InputProps) => {
   return (
     <div className="input">
-      <input className="input__field" type={type} placeholder={placeholder} {...respProps} />
+      <input className="input__field" type={type} placeholder={placeholder} {...restProps} />
       {!!icon && <Icon {...icon} />}
     </div>
   );
