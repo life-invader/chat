@@ -1,6 +1,6 @@
 import { ChatCard } from '@entities/chatCard';
+import { messages } from '../api/mock';
 import '../style.pcss';
-import { chatListMockData } from '..';
 
 export const ChatList = () => {
   return (
@@ -8,7 +8,7 @@ export const ChatList = () => {
       <h2 className="chatList__title">Messages</h2>
 
       <ul className="chatList__list">
-        {chatListMockData.messages.map((chat) => (
+        {messages.map((chat) => (
           <li key={chat.id} className="chatList__item">
             <ChatCard {...chat} />
           </li>
