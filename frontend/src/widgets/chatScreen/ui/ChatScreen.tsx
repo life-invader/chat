@@ -1,5 +1,7 @@
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
+import { Message } from '@entities/message';
+import { messages } from '../api/mock';
 import userProfileImg from '@assets/images/stories/story-1.png';
 import '../style.pcss';
 
@@ -32,7 +34,19 @@ export const ChatScreen = () => {
         </ul>
       </div>
 
-      <div className="chatScreen__body">Work in progress</div>
+      <div className="chatScreen__body">
+        <div className="chatScreen__bodyInner">
+          {messages.map(({ date, mesasges }) => (
+            <div className="chatScreen__messageGroup">
+              <p className="chatScreen__messageGroupTimestamp">{date}</p>
+
+              {mesasges.map(({ id, ...restPropss }) => (
+                <Message key={id} {...restPropss} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="chatScreen__bottom">
         <Button iconLeft={{ icon: 'smile' }} isBgTransparent={true} />

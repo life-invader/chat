@@ -1,5 +1,6 @@
 import { Sidebar } from '@widgets/sidebar';
 import { ChatScreen } from '@widgets/chatScreen';
+import { ChatInfo } from '@widgets/chatInfo';
 import '../style.pcss';
 
 export const HomeScreen = () => {
@@ -7,8 +8,7 @@ export const HomeScreen = () => {
     <div className="homeScreen">
       <Sidebar />
       <ChatScreen />
-
-      <div className="homeScreen__info">Информация о контакте</div>
+      <ChatInfo />
     </div>
   );
 };

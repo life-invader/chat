@@ -10,6 +10,10 @@
     border-bottom: 2px solid var(--colorTuna);
   }
 
+  &__userImgContainer {
+    max-width: 40px;
+  }
+
   &__user {
     display: flex;
     align-items: center;
@@ -20,6 +24,7 @@
   &__userName {
     font-size: 16px;
     line-height: 1.5;
+    font-weight: 600;
   }
 
   &__topBtnList {
@@ -31,6 +36,29 @@
     flex-grow: 1;
     background-color: var(--colorWoodsmoke);
     padding: 24px;
+    min-height: 0px;
+    overflow: hidden;
+  }
+
+  &__bodyInner {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scrollbar-width: none;
+  }
+
+  &__messageGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__messageGroupTimestamp {
+    text-align: center;
+    color: var(--colorWhiteAlpha60);
+    font-size: 12px;
   }
 
   &__bottom {
@@ -38,5 +66,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  .message {
+    &--isMine {
+      align-self: flex-end;
+    }
   }
 }

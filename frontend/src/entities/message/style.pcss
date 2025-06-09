@@ -1,0 +1,30 @@
+.message {
+  --messageColor: var(--colorWhite);
+  --messageBgColor: var(--colorShark2);
+  --messageTimeJustify: auto;
+
+  max-width: 532px;
+  display: grid;
+
+  &__text {
+    padding: 8px;
+    color: var(--messageColor);
+    background-color: var(--messageBgColor);
+    border-radius: 8px;
+
+    &:not(&:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+
+  &__time {
+    color: var(--colorWhiteAlpha60);
+    justify-self: var(--messageTimeJustify);
+  }
+
+  &--isMine {
+    --messageColor: var(--colorBlack);
+    --messageBgColor: var(--colorPaleLeaf);
+    --messageTimeJustify: end;
+  }
+}
