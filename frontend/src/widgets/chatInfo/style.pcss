@@ -14,4 +14,32 @@
     font-size: 16px;
     line-height: 1.5;
   }
+
+  &__user {
+    padding: 24px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 2px solid var(--colorTuna);
+  }
+
+  &__userImgContainer {
+    margin-bottom: 16px;
+    max-width: 124px;
+  }
+
+  &__userName {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  &__userPhoneNumber {
+    line-height: 1.4;
+    color: var(--colorWhiteAlpha60);
+
+    &:hover {
+      color: var(--colorPaleLeaf);
+    }
+  }
 }
