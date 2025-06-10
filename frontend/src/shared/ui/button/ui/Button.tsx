@@ -11,6 +11,7 @@ export const Button = ({
   type,
   children,
   isBgTransparent,
+  ...restProps
 }: IButtonProps) => {
   const isIconOnly = !!label || !!children;
   const classNames = cn('btn', extraClasses, {
@@ -19,7 +20,7 @@ export const Button = ({
   });
 
   return (
-    <button className={classNames} type={type}>
+    <button className={classNames} type={type} {...restProps}>
       {!!iconLeft && <Icon {...iconLeft} />}
 
       {children ? <>{children}</> : !!label && <span className="btn__label">{label}</span>}

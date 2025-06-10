@@ -1,5 +1,29 @@
 .chatInfo {
+  width: 74px;
   border-left: 2px solid var(--colorTuna);
+  transition: all 0.2s;
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--colorShark);
+    z-index: 1;
+  }
+
+  &--isOpened {
+    width: 280px;
+
+    &::after {
+      content: none;
+    }
+  }
+
+  &__wrapper {
+    width: 280px;
+  }
 
   &__top {
     display: flex;
@@ -40,6 +64,13 @@
 
     &:hover {
       color: var(--colorPaleLeaf);
+    }
+  }
+
+  .btn {
+    &--isToggleChatPanel {
+      position: relative;
+      z-index: 2;
     }
   }
 }
